@@ -528,7 +528,7 @@ svg {
   }
 
   body:has(#waiterPanel:not([hidden])) {
-    padding-bottom: 178px;
+    padding-bottom: 0;
   }
 
   .app-shell {
@@ -606,12 +606,12 @@ svg {
   }
 
   .status-strip {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 6px;
     margin-bottom: 10px;
-    overflow-x: auto;
-    flex-wrap: nowrap;
+    overflow: visible;
     padding-bottom: 2px;
-    scrollbar-width: none;
   }
 
   .status-strip::-webkit-scrollbar,
@@ -621,12 +621,16 @@ svg {
   }
 
   .status-strip span {
-    flex: 0 0 auto;
-    max-width: 72vw;
+    min-width: 0;
+    max-width: none;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     padding: 7px 10px;
+  }
+
+  .status-strip span:first-child {
+    grid-column: 1 / -1;
   }
 
   .workspace {
@@ -666,35 +670,49 @@ svg {
   }
 
   .table-grid {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 7px;
-    overflow-x: auto;
-    margin-inline: -10px;
-    padding: 0 10px 2px;
-    scroll-snap-type: x proximity;
+    overflow: visible;
+    margin-inline: 0;
+    padding: 0;
   }
 
   .table-btn {
-    flex: 0 0 58px;
-    min-height: 50px;
-    scroll-snap-align: start;
+    min-width: 0;
+    min-height: 46px;
+    padding: 0 4px;
   }
 
   .menu-toolbar {
+    position: sticky;
+    top: calc(58px + env(safe-area-inset-top));
+    z-index: 25;
     grid-template-columns: 1fr;
     gap: 8px;
+    margin: 0 -10px;
+    padding: 10px;
+    background: rgba(248, 244, 236, 0.97);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(12px);
   }
 
   .tabs {
-    margin-inline: -10px;
-    padding: 0 10px 2px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-inline: 0;
+    padding: 0;
     gap: 7px;
-    scrollbar-width: none;
+    overflow: visible;
   }
 
   .tabs button {
-    min-height: 42px;
-    padding-inline: 12px;
+    min-width: 0;
+    min-height: 40px;
+    padding-inline: 8px;
+    white-space: normal;
+    line-height: 1.1;
   }
 
   .search-input {
@@ -725,19 +743,13 @@ svg {
   }
 
   .cart-panel {
-    position: fixed;
-    z-index: 40;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    max-height: min(58vh, 360px);
-    overflow: auto;
-    border-radius: 18px 18px 0 0;
-    border-left: 0;
-    border-right: 0;
-    border-bottom: 0;
-    padding: 12px 12px calc(12px + env(safe-area-inset-bottom));
-    box-shadow: 0 -18px 42px rgba(33, 27, 22, 0.18);
+    position: static;
+    max-height: none;
+    overflow: visible;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    padding: 12px;
+    box-shadow: none;
   }
 
   .cart-panel h3 {
@@ -746,8 +758,8 @@ svg {
 
   .cart-header {
     position: sticky;
-    top: -12px;
-    z-index: 2;
+    top: calc(153px + env(safe-area-inset-top));
+    z-index: 20;
     margin: -12px -12px 8px;
     padding: 12px;
     background: rgba(255, 250, 241, 0.96);
@@ -756,7 +768,7 @@ svg {
   }
 
   .cart-items {
-    max-height: 116px;
+    max-height: none;
     overflow: auto;
     margin: 8px 0;
   }
@@ -789,8 +801,9 @@ svg {
 
   .cart-footer {
     position: sticky;
-    bottom: calc(-12px - env(safe-area-inset-bottom));
-    margin: 10px -12px calc(-12px - env(safe-area-inset-bottom));
+    bottom: 0;
+    z-index: 22;
+    margin: 10px -12px -12px;
     padding: 10px 12px calc(12px + env(safe-area-inset-bottom));
     background: rgba(255, 250, 241, 0.98);
     border-top: 1px solid var(--line);
@@ -818,7 +831,8 @@ svg {
   }
 
   .tabs.compact {
-    margin-inline: -10px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin-inline: 0;
   }
 
   .tabs.compact button {
@@ -859,7 +873,16 @@ svg {
   }
 
   body:has(#waiterPanel:not([hidden])) {
-    padding-bottom: 188px;
+    padding-bottom: 0;
+  }
+
+  .status-strip,
+  .tabs {
+    grid-template-columns: 1fr;
+  }
+
+  .tabs.compact {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
