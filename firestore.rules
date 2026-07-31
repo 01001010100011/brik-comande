@@ -18,9 +18,20 @@ service cloud.firestore {
       return signedIn() && profile().role == "waiter";
     }
 
+    function isBootstrapAdmin(userId) {
+      return signedIn()
+        && request.auth.uid == userId
+        && request.auth.token.email == "leoriellooo@gmail.com";
+    }
+
     match /profiles/{userId} {
       allow read: if signedIn() && (request.auth.uid == userId || isAdmin());
-      allow create, update, delete: if isAdmin();
+      allow create: if signedIn()
+        && request.auth.uid == userId
+        && (request.resource.data.role == "waiter" || (request.resource.data.role == "admin" && isBootstrapAdmin(userId)))
+        && request.resource.data.username is string
+        && request.resource.data.display_name is string;
+      allow update, delete: if isAdmin();
     }
 
     match /menu_items/{itemId} {

@@ -19,6 +19,7 @@ import {
   orderBy,
   query,
   serverTimestamp,
+  setDoc,
   updateDoc,
   where
 } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";
@@ -34,6 +35,7 @@ const firebaseConfig = {
 
 const BRAND_NAME = "Brik";
 const AUTH_EMAIL_DOMAIN = "brik.local";
+const ADMIN_BOOTSTRAP_EMAIL = "leoriellooo@gmail.com";
 const TABLES = Array.from({ length: 24 }, (_, index) => index + 1);
 const STATUS_LABELS = {
   new: "Nuova",
@@ -143,9 +145,9 @@ function isConfigured() {
 async function handleLogin(event) {
   event.preventDefault();
   els.loginError.textContent = "";
-  const username = els.usernameInput.value.trim().toLowerCase();
+  const login = els.usernameInput.value.trim().toLowerCase();
   const password = els.passwordInput.value;
-  const email = `${username}@${AUTH_EMAIL_DOMAIN}`;
+  const email = login.includes("@") ? login : `${login}@${AUTH_EMAIL_DOMAIN}`;
 
   try {
     await signInWithEmailAndPassword(auth, email, password);
@@ -158,12 +160,21 @@ async function enterApp(user) {
   currentUser = user;
   const profileSnap = await getDoc(doc(db, "profiles", user.uid));
   if (!profileSnap.exists()) {
-    els.loginError.textContent = "Profilo staff non trovato. Controlla Firestore > profiles.";
-    await signOut(auth);
-    return;
+    if (user.email?.toLowerCase() !== ADMIN_BOOTSTRAP_EMAIL) {
+      els.loginError.textContent = "Profilo staff non trovato. Controlla Firestore > profiles.";
+      await signOut(auth);
+      return;
+    }
+
+    await setDoc(doc(db, "profiles", user.uid), {
+      username: "leoriellooo",
+      display_name: "Leo",
+      role: "admin"
+    });
   }
 
-  profile = { id: profileSnap.id, ...profileSnap.data() };
+  const nextProfileSnap = profileSnap.exists() ? profileSnap : await getDoc(doc(db, "profiles", user.uid));
+  profile = { id: nextProfileSnap.id, ...nextProfileSnap.data() };
   els.loginView.hidden = true;
   els.mainView.hidden = false;
   els.waiterPanel.hidden = profile.role !== "waiter";

@@ -40,7 +40,7 @@ App statica per gestione comande di ristorante/bar, pronta per GitHub Pages. Usa
 
 L'app usa Firebase Auth con persistenza `LOCAL`: dopo il primo login, sullo stesso browser e dominio l'utente resta autenticato anche chiudendo e riaprendo il sito. L'accesso viene cancellato solo premendo `Esci` o pulendo i dati del browser.
 
-I campi del form hanno anche `autocomplete="username"` e `autocomplete="current-password"`, quindi Chrome/Safari/Edge possono salvare username e password nel password manager.
+I campi del form hanno anche `autocomplete="username"` e `autocomplete="current-password"`, quindi Chrome/Safari/Edge possono salvare username e password nel password manager. Puoi accedere con username breve, per esempio `mario`, oppure con email completa, per esempio `leoriellooo@gmail.com`.
 
 ## Stampante termica
 
