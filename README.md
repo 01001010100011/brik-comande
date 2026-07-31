@@ -34,6 +34,7 @@ App statica per gestione comande di ristorante/bar, pronta per GitHub Pages. Usa
 11. Apri `app.js` e sostituisci il blocco `firebaseConfig` con quello fornito da Firebase.
 12. Vai in `Authentication > Settings > Authorized domains` e aggiungi:
    - `01001010100011.github.io`
+   - `brik-comande.firebaseapp.com`
 
 ## Login ricordato dal browser
 

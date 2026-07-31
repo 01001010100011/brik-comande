@@ -1,4 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-app.js";
 import {
   browserLocalPersistence,
   getAuth,
@@ -6,7 +6,7 @@ import {
   setPersistence,
   signInWithEmailAndPassword,
   signOut
-} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
+} from "https://www.gstatic.com/firebasejs/12.17.0/firebase-auth.js";
 import {
   addDoc,
   collection,
@@ -21,15 +21,15 @@ import {
   serverTimestamp,
   updateDoc,
   where
-} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/12.17.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "INSERISCI_FIREBASE_API_KEY",
-  authDomain: "INSERISCI_PROJECT_ID.firebaseapp.com",
-  projectId: "INSERISCI_PROJECT_ID",
-  storageBucket: "INSERISCI_PROJECT_ID.firebasestorage.app",
-  messagingSenderId: "INSERISCI_MESSAGING_SENDER_ID",
-  appId: "INSERISCI_FIREBASE_APP_ID"
+  apiKey: "AIzaSyAR5cixKQ9FutdOAWOI3xjeceeZ305TBds",
+  authDomain: "brik-comande.firebaseapp.com",
+  projectId: "brik-comande",
+  storageBucket: "brik-comande.firebasestorage.app",
+  messagingSenderId: "809712610365",
+  appId: "1:809712610365:web:b0ffe512190e4bed3f0e54"
 };
 
 const BRAND_NAME = "Brik";
