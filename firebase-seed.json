@@ -1,0 +1,25 @@
+{
+  "profiles": {
+    "SOSTITUISCI_UID_MARIO": {
+      "username": "mario",
+      "display_name": "Mario",
+      "role": "waiter"
+    },
+    "SOSTITUISCI_UID_CUCINA": {
+      "username": "cucina",
+      "display_name": "Cucina",
+      "role": "admin"
+    }
+  },
+  "menu_items": {
+    "espresso": { "name": "Espresso", "category": "Bar", "price": 1.2, "active": true },
+    "cappuccino": { "name": "Cappuccino", "category": "Bar", "price": 1.8, "active": true },
+    "spritz": { "name": "Spritz", "category": "Bar", "price": 5.5, "active": true },
+    "acqua": { "name": "Acqua 0,75", "category": "Bevande", "price": 2.2, "active": true },
+    "cola": { "name": "Cola", "category": "Bevande", "price": 3, "active": true },
+    "margherita": { "name": "Pizza Margherita", "category": "Cucina", "price": 7.5, "active": true },
+    "diavola": { "name": "Pizza Diavola", "category": "Cucina", "price": 9, "active": true },
+    "tagliere": { "name": "Tagliere misto", "category": "Cucina", "price": 12, "active": true },
+    "tiramisu": { "name": "Tiramisu", "category": "Dolci", "price": 5, "active": true }
+  }
+}
