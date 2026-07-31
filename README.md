@@ -32,6 +32,8 @@ App statica per gestione comande di ristorante/bar, pronta per GitHub Pages. Usa
 9. In `menu_items`, crea i documenti indicati in `firebase-seed.json`, oppure usa il menu fallback gia presente nell'app.
 10. Vai in `Project settings > General > Your apps`, crea una Web App e copia la configurazione Firebase.
 11. Apri `app.js` e sostituisci il blocco `firebaseConfig` con quello fornito da Firebase.
+12. Vai in `Authentication > Settings > Authorized domains` e aggiungi:
+   - `01001010100011.github.io`
 
 ## Login ricordato dal browser
 
