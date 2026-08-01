@@ -6,8 +6,14 @@
       "firestore.rules",
       "firestore.indexes.json",
       "firebase-seed.json",
-      "**/.*",
-      "**/node_modules/**"
+      "skills-lock.json",
+      "README.md",
+      ".agents/**",
+      ".firebase/**",
+      ".git/**",
+      ".firebaserc",
+      ".gitignore",
+      ".nojekyll"
     ],
     "headers": [
       {
