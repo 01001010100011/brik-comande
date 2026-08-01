@@ -2,48 +2,122 @@
 <html lang="it">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Brik - Comande</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Brik - Comande Bar & Ristorante</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,650&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,650;700&family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="app-shell">
+      <!-- LOGIN VIEW -->
       <section id="loginView" class="login-view">
         <div class="brand-panel">
-          <p class="eyebrow">Gestione interna</p>
+          <p class="eyebrow">Gestione bar & ristorante</p>
           <h1>Brik</h1>
-          <p>Comande rapide, cucina sincronizzata e stampa scontrino da browser.</p>
+          <p>Comande veloci, sincronizzazione in tempo reale e stampa scontrini per lo staff.</p>
         </div>
 
-        <form id="loginForm" class="login-form" autocomplete="on">
-          <h2>Accesso staff</h2>
-          <label>
-            Username
-            <input id="usernameInput" name="username" autocomplete="username" required placeholder="es. mario o email" />
-          </label>
-          <label>
-            Password
-            <input id="passwordInput" name="password" type="password" autocomplete="current-password" required placeholder="Password" />
-          </label>
-          <button class="primary-action" type="submit">Entra</button>
-          <p id="loginHint" class="login-hint">Il browser manterra la sessione su questo dispositivo.</p>
-          <p id="loginError" class="form-error" role="alert"></p>
-        </form>
+        <div class="login-box">
+          <!-- PHASE 1: STAFF PROFILE PICKER -->
+          <div id="profilePicker" class="profile-picker">
+            <div class="login-header">
+              <h2>Chi sta entrando?</h2>
+              <p class="subtitle">Seleziona il tuo profilo per accedere alla dashboard</p>
+            </div>
+
+            <div class="profile-cards-grid">
+              <button class="profile-card" type="button" data-user="leo" data-email="leo@brik.local" data-name="Leo" data-role="Admin / Cameriere">
+                <div class="avatar-badge avatar-leo">
+                  <i data-lucide="user-check"></i>
+                </div>
+                <div class="profile-info">
+                  <strong>Leo</strong>
+                  <span class="role-tag">Admin / Cameriere</span>
+                </div>
+                <i data-lucide="chevron-right" class="arrow-icon"></i>
+              </button>
+
+              <button class="profile-card" type="button" data-user="mario" data-email="mario@brik.local" data-name="Mario" data-role="Cameriere">
+                <div class="avatar-badge avatar-mario">
+                  <i data-lucide="user"></i>
+                </div>
+                <div class="profile-info">
+                  <strong>Mario</strong>
+                  <span class="role-tag">Cameriere</span>
+                </div>
+                <i data-lucide="chevron-right" class="arrow-icon"></i>
+              </button>
+
+              <button class="profile-card" type="button" data-user="cucina" data-email="cucina@brik.local" data-name="Cucina" data-role="Cucina & Monitor">
+                <div class="avatar-badge avatar-cucina">
+                  <i data-lucide="utensils"></i>
+                </div>
+                <div class="profile-info">
+                  <strong>Cucina</strong>
+                  <span class="role-tag">Cucina & Monitor</span>
+                </div>
+                <i data-lucide="chevron-right" class="arrow-icon"></i>
+              </button>
+            </div>
+
+            <button id="showManualLoginBtn" class="manual-login-toggle" type="button">
+              <i data-lucide="key-round"></i>
+              <span>Accedi con un altro account</span>
+            </button>
+          </div>
+
+          <!-- PHASE 2: PASSWORD ENTRY MODAL / STEP -->
+          <form id="loginForm" class="login-form" autocomplete="on" hidden>
+            <button id="backToProfilesBtn" class="back-btn" type="button">
+              <i data-lucide="arrow-left"></i>
+              <span>Cambia profilo</span>
+            </button>
+
+            <div class="selected-user-card">
+              <div id="selectedUserAvatar" class="avatar-badge avatar-leo">
+                <i data-lucide="user"></i>
+              </div>
+              <div>
+                <h3 id="selectedUserName">Leo</h3>
+                <span id="selectedUserRole" class="role-tag">Admin / Cameriere</span>
+              </div>
+            </div>
+
+            <input id="usernameInput" name="username" type="hidden" autocomplete="username" value="leo" />
+
+            <label id="usernameLabel" class="manual-only-field" hidden>
+              Username / Email
+              <input id="manualUsernameInput" name="manual_username" autocomplete="username" placeholder="es. mario o email" />
+            </label>
+
+            <label>
+              Inserisci la Password
+              <input id="passwordInput" name="password" type="password" autocomplete="current-password" required placeholder="••••••••" autofocus />
+            </label>
+
+            <button class="primary-action full-width" type="submit">
+              <i data-lucide="log-in"></i>
+              <span>Entra nella Dashboard</span>
+            </button>
+            <p id="loginHint" class="login-hint">Sessione salvata in memoria per un riaccesso rapido.</p>
+            <p id="loginError" class="form-error" role="alert"></p>
+          </form>
+        </div>
       </section>
 
+      <!-- MAIN APP VIEW -->
       <section id="mainView" class="main-view" hidden>
         <header class="topbar">
-          <div>
+          <div class="brand-badge">
             <p class="eyebrow">Turno attivo</p>
             <h1>Brik</h1>
           </div>
           <div class="topbar-actions">
             <button id="connectPrinterBtn" class="ghost-action" type="button" title="Collega stampante">
               <i data-lucide="printer"></i>
-              <span>Stampante</span>
+              <span class="desktop-only">Stampante</span>
             </button>
             <button id="logoutBtn" class="icon-action" type="button" title="Esci">
               <i data-lucide="log-out"></i>
@@ -52,46 +126,70 @@
         </header>
 
         <div class="status-strip">
-          <span id="userBadge">-</span>
-          <span id="printerBadge">Stampa browser pronta</span>
-          <span id="syncBadge">Realtime in attesa</span>
+          <span id="userBadge"><i data-lucide="user"></i> -</span>
+          <span id="printerBadge"><i data-lucide="printer"></i> Stampa browser pronta</span>
+          <span id="syncBadge"><i data-lucide="wifi"></i> Realtime in attesa</span>
         </div>
 
+        <!-- MOBILE TOP TABS FOR WAITERS -->
+        <nav id="mobileNav" class="mobile-nav-tabs" aria-label="Navigazione cameriere">
+          <button id="tabNewOrder" class="mobile-tab active" type="button" data-target="waiterPanel">
+            <i data-lucide="plus-circle"></i>
+            <span>Nuova Comanda</span>
+          </button>
+          <button id="tabOrdersBoard" class="mobile-tab" type="button" data-target="ordersBoard">
+            <i data-lucide="clipboard-list"></i>
+            <span>Le mie Comande</span>
+            <span id="activeOrdersBadge" class="count-badge" hidden>0</span>
+          </button>
+        </nav>
+
         <main class="workspace">
-          <section id="waiterPanel" class="order-entry" hidden>
+          <!-- WAITER PANEL -->
+          <section id="waiterPanel" class="order-entry">
             <div class="panel-heading">
               <div>
                 <p class="eyebrow">Nuova comanda</p>
-                <h2>Tavolo e articoli</h2>
+                <h2>Seleziona Tavolo & Articoli</h2>
               </div>
               <button id="clearCartBtn" class="ghost-action" type="button">
                 <i data-lucide="eraser"></i>
-                <span>Svuota</span>
+                <span class="desktop-only">Svuota</span>
               </button>
             </div>
 
-            <div class="table-grid" id="tableGrid" aria-label="Selezione tavolo"></div>
+            <div class="table-section">
+              <span class="section-label">Seleziona Tavolo:</span>
+              <div class="table-grid" id="tableGrid" aria-label="Selezione tavolo"></div>
+            </div>
 
             <div class="menu-toolbar">
               <div id="categoryTabs" class="tabs" role="tablist"></div>
-              <input id="menuSearch" class="search-input" placeholder="Cerca piatto o bevanda" />
+              <div class="search-box">
+                <i data-lucide="search" class="search-icon"></i>
+                <input id="menuSearch" class="search-input" placeholder="Cerca piatto o bevanda..." />
+              </div>
             </div>
 
             <div id="menuGrid" class="menu-grid"></div>
 
-            <aside class="cart-panel">
+            <!-- DESKTOP CART SIDEBAR -->
+            <aside class="cart-panel desktop-cart">
               <div class="cart-header">
                 <h3>Comanda</h3>
-                <strong id="cartTableLabel">Tavolo -</strong>
+                <strong id="cartTableLabel">Tavolo 1</strong>
               </div>
               <div id="cartItems" class="cart-items empty">Nessun articolo selezionato.</div>
               <label class="note-field">
-                Note per cucina/bar
+                Note per cucina / bar
                 <textarea id="orderNotes" rows="3" placeholder="Cottura, allergie, variazioni..."></textarea>
               </label>
               <div class="cart-footer">
-                <strong id="cartTotal">0,00 EUR</strong>
-                <button id="sendOrderBtn" class="primary-action" type="button">
+                <div class="cart-total-box">
+                  <span class="total-label">Totale:</span>
+                  <strong id="cartTotal">0,00 €</strong>
+                </div>
+                <button id="sendOrderBtn" class="primary-action" type="button" disabled>
                   <i data-lucide="send"></i>
                   <span>Invia e stampa</span>
                 </button>
@@ -99,7 +197,8 @@
             </aside>
           </section>
 
-          <section class="orders-board">
+          <!-- ORDERS BOARD (REALTIME KITCHEN / WAITER ORDERS) -->
+          <section id="ordersBoard" class="orders-board">
             <div class="panel-heading">
               <div>
                 <p class="eyebrow">Realtime</p>
@@ -116,6 +215,55 @@
           </section>
         </main>
       </section>
+
+      <!-- MOBILE FLOATING BOTTOM CART BAR & SHEET -->
+      <div id="mobileCartBar" class="mobile-cart-bar" hidden>
+        <div class="mobile-cart-summary" id="openMobileCartBtn">
+          <div class="cart-badge-icon">
+            <i data-lucide="shopping-bag"></i>
+            <span id="mobileCartCount" class="badge">0</span>
+          </div>
+          <div class="mobile-cart-info">
+            <strong id="mobileCartTable">Tavolo 1</strong>
+            <span id="mobileCartTotal">0,00 €</span>
+          </div>
+        </div>
+        <button id="mobileQuickSendBtn" class="primary-action quick-send-btn" type="button" disabled>
+          <i data-lucide="send"></i>
+          <span>Invia</span>
+        </button>
+      </div>
+
+      <!-- MOBILE CART DRAWER MODAL -->
+      <div id="mobileCartModal" class="mobile-cart-modal" hidden>
+        <div class="mobile-cart-backdrop" id="closeMobileCartBackdrop"></div>
+        <div class="mobile-cart-drawer">
+          <div class="drawer-header">
+            <div>
+              <h3>Riepilogo Comanda</h3>
+              <span id="drawerCartTable">Tavolo 1</span>
+            </div>
+            <button id="closeMobileCartBtn" class="icon-action" type="button">
+              <i data-lucide="x"></i>
+            </button>
+          </div>
+          <div id="drawerCartItems" class="cart-items empty">Nessun articolo selezionato.</div>
+          <label class="note-field">
+            Note per cucina / bar
+            <textarea id="drawerOrderNotes" rows="2" placeholder="Cottura, allergie, variazioni..."></textarea>
+          </label>
+          <div class="drawer-footer">
+            <div class="drawer-total">
+              <span>Totale</span>
+              <strong id="drawerCartTotal">0,00 €</strong>
+            </div>
+            <button id="drawerSendOrderBtn" class="primary-action full-width" type="button" disabled>
+              <i data-lucide="send"></i>
+              <span>Invia e Stampa Comanda</span>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <section id="printArea" class="print-area" aria-hidden="true"></section>
